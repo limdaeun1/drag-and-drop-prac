@@ -1,140 +1,50 @@
 import styled from "@emotion/styled";
 import React, { useCallback, useState } from "react";
-import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
-import Column from "./KanbanLibrary";
-import initialData from "./initial-data";
-import { useGet } from "shared/http";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useGet , post } from "shared/http";
+import { Link } from "react-router-dom";
 
-interface IData {
-  tasks: {
-    [key: string]: { id: string; content: string };
-  };
-  columns: {
-    [key: string]: { id: string; title: string; taskIds: string[] };
-  };
-  columnOrder: string[];
-}
 
 function Kanban() {
-  const itemData = useGet('http://192.168.20.24:8080/api/items/24')
-  console.log(itemData)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const test = itemData.cards.map((card:any , index:any) => {
-
-  })
-
+  const CardData = useGet('http://192.168.20.24:8080/api/items/24')
+  console.log(CardData)
 
 
-  
+  const addCard = () => {
+    navigate('/addcard')
+  }
 
-  const [data, setData] = useState<IData>(initialData);
-  const onDragEnd = useCallback(
-    (result: DropResult) => {
-      const { destination, source, draggableId, type } = result;
-      if (!destination) return;
-      if (
-        destination.droppableId === source.droppableId &&
-        source.index === destination.index
-      )
-        return;
-
-     
-    //   if (type === "column") {
-    //     const newColumnOrder = Array.from(data.columnOrder);
-    //     newColumnOrder.splice(source.index, 1);
-    //     newColumnOrder.splice(destination.index, 0, draggableId);
-
-    //     const newData = {
-    //       ...data,
-    //       columnOrder: newColumnOrder,
-    //     };
-    //     setData(newData);
-    //     return;
-    //   }
-      const startColumn = data.columns[source.droppableId];
-      const finishColumn = data.columns[destination.droppableId];
-
-      if (startColumn === finishColumn) {
-        const newTaskIds = Array.from(startColumn.taskIds);
-        newTaskIds.splice(source.index, 1);
-        newTaskIds.splice(destination.index, 0, draggableId);
-
-        const newColumn = {
-          ...startColumn,
-          taskIds: newTaskIds,
-        };
-
-        const newData = {
-          ...data,
-          columns: {
-            ...data.columns,
-            [newColumn.id]: newColumn,
-          },
-        };
-
-        setData(newData);
-      } else {
-        const startTaskIds = Array.from(startColumn.taskIds);
-        startTaskIds.splice(source.index, 1);
-        const newStartColumn = {
-          ...startColumn,
-          taskIds: startTaskIds,
-        };
-
-        const finishTaskIds = Array.from(finishColumn.taskIds);
-        finishTaskIds.splice(destination.index, 0, draggableId);
-        const newFinishColumn = {
-          ...finishColumn,
-          taskIds: finishTaskIds,
-        };
-
-        const newData = {
-          ...data,
-          columns: {
-            ...data.columns,
-            [newStartColumn.id]: newStartColumn,
-            [newFinishColumn.id]: newFinishColumn,
-          },
-        };
-
-        setData(newData);
-      }
-    },
-    [data]
-  );
+ 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable
-            droppableId="all-columns"
-            direction="horizontal"
-            type="column"
-          >
-            {(provided) => (
-              <Container {...provided.droppableProps} ref={provided.innerRef}>
-                {data.columnOrder.map((columnId, index) => {
-                  const column = data.columns[columnId];
-                  const tasks = column.taskIds.map(
-                    (taskId) => data.tasks[taskId]
-                  );
-                  return (
-                    <Column
-                      column={column}
-                      tasks={tasks}
-                      key={column.id}
-                      index={index}
-                    />
-                  );
-                })}
-                {provided.placeholder}
-              </Container>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </header>
-    </div>
+    <Container>
+        <List>
+            {CardData?.cards.map((card:any , index:any)=> (
+            <StyledLink to={`/card?id=${card.id}`}>
+            <Card>
+                <p>{card.title}</p>
+                {card?.assignees.map((assignee:any, index:any)=> (
+                <P><p>{assignee.user.auth}</p></P>
+                ))}
+                <p>{card.dueDate}</p>
+                <p>전체/남은task </p>
+            </Card>
+            </StyledLink>
+            ))}
+             <ButtonBox>
+                 <AddCardButton onClick={addCard}>추가</AddCardButton>
+            </ButtonBox>
+        </List>
+
+        <List></List>
+        <List></List>
+        <List></List>
+        <List></List>
+    </Container>
   );
 }
 
@@ -142,4 +52,58 @@ export default Kanban;
 
 const Container = styled.div`
   display: flex;
+ 
 `;
+
+const List = styled.div`
+    width: 20%;
+    height: 70vh;
+
+    border:1px solid #80808037;
+`
+
+const Card = styled.div`
+    border:1px solid #80808037;
+    margin: 1rem;
+    padding: 0 1rem;
+    cursor: pointer;
+`
+
+const P = styled.div`
+    p{
+        font-size: 0.7rem;
+    }
+`
+
+const ButtonBox = styled.div`
+    text-align: center;
+`
+
+const AddCardButton = styled.button`
+    margin-top: 1rem;
+    height: 1.5rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+
+    margin-top: 0.25rem;
+    margin-left: 1rem;
+  
+    border-radius: 3px;
+    border: 0;
+    cursor: pointer;
+    transition: all 0.5s;
+   
+    color: #fff;
+    background-color: #2a52d3;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    &:hover {
+      background-color: #03288f;
+    }
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`

@@ -29,7 +29,6 @@ export default Board
 
 const BoardContainer = styled.div`
   width: calc(100% - 22rem);
-
   display: flex;
   flex-direction: column;
 
@@ -44,12 +43,9 @@ const BoardHeader = styled.div`
 `
 
 const BoardBody = styled.div`
-  border:1px solid red;
   min-height: 5rem;
 `
 
 const Kanbancontainer = styled.div`
-  /* height: calc(100vh - 8rem ); */
   flex: 1;
-  border:1px solid red;
 `

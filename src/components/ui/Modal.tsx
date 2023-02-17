@@ -16,13 +16,14 @@ const Modal = () => {
     if (pathname !== '/add') {
         return null;
     }
- 
+
+
 
   return (
     <>
         <Background onClick={() => navigate(-1)}></Background>
         <ModalContainer>
-            <AddPj/>
+        {pathname === '/add' ? <AddPj/> : null}
         </ModalContainer>
     </>
   )

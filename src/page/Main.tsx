@@ -9,6 +9,7 @@ import Calendar from 'components/calendar/Calendar'
 import Board from 'components/board/Board'
 import History from 'components/history/History'
 import Modal from 'components/ui/Modal'
+import Cardpop from 'components/board/Cardpop'
 
 const Main = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const Main = () => {
 
   return (
     <>
+    <Cardpop/>
     <Modal/>
     <Container>
         <Header/>
