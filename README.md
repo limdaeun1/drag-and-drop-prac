@@ -1,21 +1,46 @@
-# DND-Playground
+# Getting Started with Create React App
 
-**blog**
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-https://velog.io/@bepyan/series/DND-뽀개기
+## Available Scripts
 
-![](https://velog.velcdn.com/images/bepyan/post/a9dd1b2f-dae4-444f-ad40-7e6eac2b8087/image.gif)
+In the project directory, you can run:
 
-![](https://velog.velcdn.com/images/bepyan/post/303a7b16-f66f-44ca-be42-96878aa604ca/image.gif)
+### `npm start`
 
-![](https://velog.velcdn.com/images/bepyan/post/094c30d9-3e53-4427-aefa-766cdb841d03/image.gif)
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-![](https://velog.velcdn.com/images/bepyan/post/10219eb9-d877-4604-9f68-f9fac3cf682c/image.gif)
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-![image](https://velog.velcdn.com/images/bepyan/post/094c30d9-3e53-4427-aefa-766cdb841d03/image.gif)
+### `npm test`
 
-![image](https://velog.velcdn.com/images/bepyan/post/cd776d77-2036-4df0-a3ae-58b1e8815b02/image.gif)
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-![image](https://velog.velcdn.com/images/bepyan/post/e7b691c1-c6c2-4518-84d9-1326b591ef52/image.gif)
+### `npm run build`
 
-![2022-11-01 02 18 14](https://user-images.githubusercontent.com/65283190/199069255-50234d9f-df8b-4e25-97f6-645285e1e81d.gif)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
